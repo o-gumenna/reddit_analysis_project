@@ -1,10 +1,1 @@
-/src/01_cleaning_preprocessing.R
-/src/02_keyword_categorization.R
-/src/03_tfidf_analysis.R
-/src/04_sentiment_analysis.R
-/src/05_visualizations_export.R
 
-/notebooks/final_analysis.ipynb  або .Rmd
-/figures/   (заливати готові графіки)
-/presentation/ (коли буде PDF)
-/report/ (опц. – додати фінальний дослідницький PDF)
