@@ -12,53 +12,38 @@ Reddit was selected as a primary open source of community discussion in order to
 
 
 
-The raw data (Pushshift) is stored on [Academic Torrents](https://academictorrents.com/details/30dee5f0406da7a353aff6a8caa2d54fd01f2ca1). 
+The raw data pushshift is stored on [Academic Torrents](https://academictorrents.com/details/30dee5f0406da7a353aff6a8caa2d54fd01f2ca1). 
 
-The analysis uses the following monthly files:
-
+Files are monthly:
 - `RS_2025-01.zst` (submissions January 2025)
-
 - `RC_2025-01.zst` (comments January 2025)
 
 
 
-Base extraction scripts are adapted from [PushshiftDumps](https://github.com/SanGreel/PushshiftDumps/tree/master).
 
-
-
-**Final Dataset:** The processed dataset can be found [here](https://drive.google.com/file/d/1rvr8waMZtuJvKK-CtyH5LssDj_-ns3i2/view)
-
-
-
-## Project Structure & Scripts
-
-
+## Scripts
 
 The repository includes the following Python scripts for data extraction and cleaning:
 
-
-
 * **`combine_folder_multiprocess.py`** Unpacking monthly files and downloading selected subreddits into a selected directory.
 
-    
 
 * **`filter_file_categorized.py`** Processing `.zst` files and downloading data into a CSV file with specific fields (`base_headers`). Enables (but does not require) the creation of additional categorized columns using a keyword dictionary.
 
 
-
 * **`data_processing.ipynb`** Data cleaning and dataset downloading operations.
 
+Scripts are based on code from from [PushshiftDumps](https://github.com/SanGreel/PushshiftDumps/tree/master).
+**Final Dataset** can be found [here](https://drive.google.com/file/d/1rvr8waMZtuJvKK-CtyH5LssDj_-ns3i2/view)
+
+### How to Run
 
 
-## How to Run
+Before running the notebooks through Google Colab, make sure you have copied the dataset to your Drive. To run it using Jupyter or another local environment, the dataset should be loaded locally.
 
 
 
-Before running the notebooks through **Google Colab**, make sure you have copied the dataset to your Drive. To run it using **Jupyter** or another local environment, the dataset should be loaded locally.
-
-
-
-### Notebooks Description
+## Notebooks
 
 
 
@@ -74,4 +59,4 @@ Before running the notebooks through **Google Colab**, make sure you have copied
 
 3.  **`R-language`** Part of EDA using R-language as an effective tool for language processing.
 
-    > **Note:** This notebook runs on an R kernel. It cannot be run in the same notebook environment as Python on a local setup without configuration. To run it in Google Colab, use `%%R` at the start of the cell. We strongly recommend running it separately on a dedicated R kernel.# reddit_analysis_project
+    > **Note:** This notebook runs on an R kernel. It cannot be run in the same notebook environment as Python on a local setup without configuration. To run it in Google Colab, use `%%R` at the start of the cell. We strongly recommend running it separately on a dedicated R kernel.
