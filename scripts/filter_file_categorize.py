@@ -8,9 +8,14 @@ import logging.handlers
 import traceback
 import re
 
-input_file = r"/Users/olhagumenna/march_output"
-output_file = r"/Users/olhagumenna/categorized_data/march_categorized.csv"
+
+# put the path to the input file, or a folder of files to process all of
+input_file = r"\\PATH\january_output.zst"
+# put the name or path to the output file. The file extension from below will be added automatically. If the input file is a folder, the output will be treated as a folder as well
+output_file = r"\\PATH\january_categorized"
+
 output_format = "csv"
+
 
 single_field = None
 write_bad_lines = True
@@ -19,6 +24,7 @@ from_date = datetime.strptime("2024-12-01", "%Y-%m-%d")
 to_date = datetime.strptime("2025-03-31", "%Y-%m-%d")
 
 
+# dict of categories and keywords to create new additional columns, could be modified
 
 KEYWORD_CATEGORIES = {
     "government_mentioned": [
@@ -73,7 +79,7 @@ KEYWORD_CATEGORIES = {
 
 CATEGORIES_LOWER = {}
 for category, keywords in KEYWORD_CATEGORIES.items():
-    clean_name = re.sub(r'[^a-z0-9_]+', '', category.lower()) # Робимо ім'я колонки безпечним
+    clean_name = re.sub(r'[^a-z0-9_]+', '', category.lower())
     CATEGORIES_LOWER[clean_name] = [k.lower() for k in keywords]
 
 field = None
@@ -139,7 +145,7 @@ def write_line_csv(writer, obj, is_submission, category_data):
     try:
         writer.writerow(output_list)
     except Exception as e:
-        log.warning(f"Помилка запису рядка CSV {obj.get('id', '')}: {e}")
+        log.warning(f"Raw record error CSV {obj.get('id', '')}: {e}")
 
 
 
@@ -187,11 +193,11 @@ def process_file(input_file, csv_writer, from_date, to_date):
     total_lines = 0
 
     base_headers = ['comment_id', 'created_utc', 'author', 'score', 'body', 'subreddit', 'link_id', 'permalink']
-    category_headers = list(CATEGORIES_LOWER.keys()) # Use clean names
+    category_headers = list(CATEGORIES_LOWER.keys())
 
     for line, file_bytes_processed in read_lines_zst(input_file):
         total_lines += 1
-        if total_lines % 250000 == 0: # Log less frequently
+        if total_lines % 250000 == 0:
            created_str = created.strftime('%Y-%m-%d %H:%M:%S') if created else "Starting"
            log.info(f"File {os.path.basename(input_file)}: {created_str} : {total_lines:,} lines read : {processed_lines:,} processed : {bad_lines:,} bad : {(file_bytes_processed / file_size) * 100:.1f}%")
 
@@ -232,7 +238,7 @@ def process_file(input_file, csv_writer, from_date, to_date):
 
         except (KeyError, json.JSONDecodeError, TypeError) as err:
             bad_lines += 1
-            if write_bad_lines and total_lines % 5000 == 0: # Log bad lines less often
+            if write_bad_lines and total_lines % 5000 == 0:
                 log.warning(f"Skipping bad line {total_lines:,} in {os.path.basename(input_file)}. Error: {err}. Line: {line[:150]}")
         except Exception as e:
             bad_lines += 1
@@ -244,7 +250,7 @@ def process_file(input_file, csv_writer, from_date, to_date):
 if __name__ == "__main__":
     if single_field is not None:
         log.warning("single_field is set but will be ignored. Output format forced to CSV.")
-        output_format = "csv" # Force CSV if single_field was accidentally set
+        output_format = "csv"
 
     if output_format != "csv":
        log.error(f"This script is configured to output CSV only. Please set output_format = 'csv'. Current: '{output_format}'")
@@ -261,7 +267,7 @@ if __name__ == "__main__":
 
     if os.path.isdir(input_file):
         log.info(f"Input path is a directory. Searching for .zst files in: {input_file}")
-        for filename in sorted(os.listdir(input_file)): # Sort for consistent processing order
+        for filename in sorted(os.listdir(input_file)):
             if not os.path.isdir(os.path.join(input_file, filename)) and filename.endswith(".zst"):
                 input_files_to_process.append(os.path.join(input_file, filename))
         if not input_files_to_process:
@@ -283,7 +289,7 @@ if __name__ == "__main__":
             sys.exit()
 
     base_headers = ['comment_id', 'created_utc', 'author', 'score', 'body', 'subreddit', 'link_id', 'permalink']
-    category_headers = list(CATEGORIES_LOWER.keys()) # Use clean names
+    category_headers = list(CATEGORIES_LOWER.keys()) 
     all_headers = base_headers + category_headers
 
     try:
