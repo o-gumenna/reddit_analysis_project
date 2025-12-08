@@ -1,3 +1,5 @@
+# Investigating Behavioral Dynamics in Crisis Contexts: Insights from the Los Angeles Wildfires in January 2025 Using Reddit Data
+
 This project contains the tools used in the research based on Reddit community discussions. The study illustrates, through examples, how a crisis situation affects user engagement and activity, demonstrates the distribution of comment topics, and conducts an analysis of shifts in public sentiment and attitudes toward the government.
 
 
@@ -24,7 +26,7 @@ Base extraction scripts are adapted from [PushshiftDumps](https://github.com/San
 
 
 
-**Final Dataset:** The processed dataset can be found [here](ВСТАВТЕ_ТУТ_ВАШЕ_ПОСИЛАННЯ).
+**Final Dataset:** The processed dataset can be found [here](https://drive.google.com/file/d/1rvr8waMZtuJvKK-CtyH5LssDj_-ns3i2/view)
 
 
 
@@ -73,9 +75,3 @@ Before running the notebooks through **Google Colab**, make sure you have copied
 3.  **`R-language`** Part of EDA using R-language as an effective tool for language processing.
 
     > **Note:** This notebook runs on an R kernel. It cannot be run in the same notebook environment as Python on a local setup without configuration. To run it in Google Colab, use `%%R` at the start of the cell. We strongly recommend running it separately on a dedicated R kernel.# reddit_analysis_project
-This project explores the dynamics of public opinion on the Reddit platform during major winter fires in the Los Angeles area in January 2025. The goal of the study will be to find out how the focus of discussions changes in response to extreme situations.
-
-The research analyzes 3.59M comments over 4 months to identify how attention shifted across topics — from fire → humanitarian aid → government →  politics → conspiracy narratives.
-
-The project includes data preprocessing, categorization, topic modeling (TF-IDF), sentiment trends,  
-and visual interpretation of behavioral crisis dynamics.
